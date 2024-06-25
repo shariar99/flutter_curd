@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:untitled2/Model/posts_model.dart';
+import 'package:untitled2/Pages/post_create.dart';
 import 'package:untitled2/Pages/post_details.dart';
 import 'package:untitled2/Services/api_services.dart';
 
@@ -51,7 +52,7 @@ class _HomePageState extends State<HomePage> {
                       )),
                   child: Card(
                     child: ListTile(
-                      leading: Image.network(data.thumbnail),
+
                       title: Text(data.title),
                       subtitle: Text(
                         data.description,
@@ -65,6 +66,14 @@ class _HomePageState extends State<HomePage> {
             );
           }
         },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: (){
+
+          Navigator.push(context, MaterialPageRoute(builder: (_) => PostCreate()));
+        },
+        child: Icon(Icons.add),
+
       ),
     );
   }

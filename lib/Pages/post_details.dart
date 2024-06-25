@@ -34,7 +34,14 @@ class PostDetails extends StatelessWidget {
                   subtitle: Text(post.author.email),
 
                 ),
-                Text(post.author.country.name)
+                Text(post.author.country.name),
+                Text(post.author.country.dialCode),
+                Text(post.author.country.shortname),
+                Text(post.author.occupation),
+                Text(post.author.phone),
+                Text(post.author.blockedReaseon != null ? post.author.blockedReaseon! : 'No reason provided')
+                ,
+
               ],
             );
           }

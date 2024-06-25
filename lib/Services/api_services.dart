@@ -33,7 +33,7 @@ class ApiServices {
   static Future<PostDetailsModel?> getSinglePost(String id) async {
     try {
       final response =
-      await http.get(Uri.parse('${ApiEndpointConfig.singlePost}/$id'));
+          await http.get(Uri.parse('${ApiEndpointConfig.post}/$id'));
 
       if (response.statusCode == 200) {
         final decoded = jsonDecode(response.body);
@@ -48,6 +48,38 @@ class ApiServices {
     } catch (e) {
       print('Error: $e');
       return null;
+    }
+  }
+
+  static Future<void> createPost(
+      String title,
+      String description
+      ) async {
+    final response = await http.post(
+      Uri.parse(ApiEndpointConfig.post),
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: jsonEncode({
+        'title': title,
+        'description':description,
+        'thumbnail': 'Test Thumbnail',
+        'author_id': '1',
+        'category_id': '1',
+        'tags': 'hello, programming, flutter',
+      }),
+    );
+
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      final responseData = jsonDecode(response.body);
+      if (responseData['status'] == true) {
+        print('Post Create Success: ${responseData['message']}');
+      } else {
+        print('Post Create Fail: ${responseData['message']}');
+      }
+    } else {
+      print('Post Create Fail: HTTP status ${response.statusCode}');
     }
   }
 }
